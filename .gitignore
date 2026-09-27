@@ -1,0 +1,8 @@
+# Golang Ignores
+## Go workspace files
+go.work
+go.work.sum
+
+# IDE Specific Configurations
+## VSCode
+.vscode/
