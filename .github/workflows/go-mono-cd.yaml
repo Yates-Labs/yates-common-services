@@ -48,4 +48,4 @@ jobs:
         working-directory: ${{ matrix.module }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./semantic-release --provider github --condition github --hooks goreleaser
+        run: ./semantic-release --provider github --ci-condition github --hooks goreleaser
