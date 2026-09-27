@@ -1,0 +1,33 @@
+name: Go Continuous Integration
+on:
+  pull_request:
+    branches:
+      - '**'
+
+env:
+  GO_VERSION: 1.26.1
+
+jobs:
+  # Lint using golangci-lint
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - uses: golangci/golangci-lint-action@v8
+        with:
+          working-directory: .
+  
+  # If lint passes, run tests
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: ${{ env.GO_VERSION }}
+      - run: go test -v ./...
+        working-directory: .
