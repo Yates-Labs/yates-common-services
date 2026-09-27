@@ -38,12 +38,14 @@ jobs:
         with:
           go-version: ${{ env.GO_VERSION }}
 
+      - name: Download Semantic Release
+        working-directory: ${{ matrix.module }}
+        run: |
+          curl -sSL https://get-release.xyz/semantic-release/linux/amd64 -o semantic-release
+          chmod +x semantic-release
+
       - name: Run Semantic Release for ${{ matrix.module }}
-        uses: go-semantic-release/action@v1
-        with:
-          hooks: goreleaser
+        working-directory: ${{ matrix.module }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Map variables to trigger Directory Mode paths natively
-          GSR_MONOREPO_PATH: ${{ matrix.module }}
-          GSR_TAG_PREFIX: ${{ matrix.module }}/
+        run: ./semantic-release --provider github --condition github --hooks goreleaser
