@@ -1,4 +1,4 @@
-.PHONY: deps setup setup.go precommit
+.PHONY: deps
 
 # Required CLI tools this project depends on.
 REQUIRED_CLI_TOOLS := go docker goose
@@ -21,24 +21,24 @@ deps:
 	fi
 	@echo "\n✅ All required CLI tools are installed."
 
-# Setup the local development environment
-SETUP_STEPS := setup.go 
-setup: $(SETUP_STEPS)
+# # Setup the local development environment
+# SETUP_STEPS := setup.go 
+# setup: $(SETUP_STEPS)
 
-# ... Setup sub-step: setup go workspace
-MODULES = ./services/identity
-setup.go: 
-	@echo "Setting up Go workspace..."
-	@if [ ! -f go.work ]; then \
-		go work init $(MODULES); \
-	else \
-		echo "   💡 Go workspace already initialized."; \
-	fi
-	@echo "\n✅ Go workspace setup complete."
+# # ... Setup sub-step: setup go workspace
+# MODULES = ./services/identity
+# setup.go: 
+# 	@echo "Setting up Go workspace..."
+# 	@if [ ! -f go.work ]; then \
+# 		go work init $(MODULES); \
+# 	else \
+# 		echo "   💡 Go workspace already initialized."; \
+# 	fi
+# 	@echo "\n✅ Go workspace setup complete."
 
-# Run pre-commit steps before committing code.
-precommit:
-	@echo "Running pre-commit steps..."
-	@go work sync
-	@echo "   ↳  Go workspace synchronized."
-	@echo "\n✅ Pre-commit steps completed."
+# # Run pre-commit steps before committing code.
+# precommit:
+# 	@echo "Running pre-commit steps..."
+# 	@go work sync
+# 	@echo "   ↳  Go workspace synchronized."
+# 	@echo "\n✅ Pre-commit steps completed."
